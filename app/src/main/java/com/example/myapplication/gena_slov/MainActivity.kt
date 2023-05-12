@@ -3,7 +3,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.trevjonez.markov.MarkovChain
+import com.example.myapplication.markov.MarkovChain
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.util.*
@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
                     markovChain.addText(line!!)
                 }
             }
+            markovChain.addFrequency() // добавление частот слов после добавления текста
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -36,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         // Set click listener for generateButton
         generateButton.setOnClickListener {
             // Generate a new phrase
-            val generatedPhrase = markovChain.generatePhrase(10)
+            val generatedPhrase = markovChain.generatePhrase(5)
 
             // Display the generated phrase in the TextView
             phraseTextView.text = generatedPhrase
