@@ -44,6 +44,10 @@ class MarkovChain(private val n: Int) {
             words.add(nextWord)
             currentKey = currentKey.drop(1) + nextWord
         }
+        val lastWord = words.last()
+        if (lastWord.length <= 2) {
+            return generatePhrase(length) // generate a new phrase if the last word is too short
+        }
         return words.joinToString(" ")
     }
 
