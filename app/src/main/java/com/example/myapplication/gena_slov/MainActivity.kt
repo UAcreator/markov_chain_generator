@@ -1,13 +1,12 @@
 package com.example.myapplication.gena_slov
-
 import android.os.Bundle
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.markov.MarkovChain
 import java.io.BufferedReader
-import java.io.File
 import java.io.InputStreamReader
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,32 +23,21 @@ class MainActivity : AppCompatActivity() {
 
         // Read words from file and pass them to MarkovChain instance
         try {
-            val words = mutableListOf<String>()
             BufferedReader(InputStreamReader(assets.open("words.txt"))).use { reader ->
                 var line: String?
                 while (reader.readLine().also { line = it } != null) {
-                    words.add(line!!)
                     markovChain.addText(line!!)
                 }
             }
-            words.sort()
-            val textFile = File(filesDir, "txt.txt")
-            textFile.writeText(words.joinToString("\n"))
             markovChain.addFrequency() // добавление частот слов после добавления текста
         } catch (e: Exception) {
             e.printStackTrace()
         }
-    }
 
-    private val assetsDir: File
-        get() = File("${externalCacheDir?.absolutePath}/assets").apply { mkdirs() }
-
-    // Set click listener for generateButton
-    override fun onStart() {
-        super.onStart()
+        // Set click listener for generateButton
         generateButton.setOnClickListener {
             // Generate a new phrase
-            val generatedPhrase = markovChain.generatePhrase(3)
+            val generatedPhrase = markovChain.generatePhrase(10)
 
             // Display the generated phrase in the TextView
             phraseTextView.text = generatedPhrase
