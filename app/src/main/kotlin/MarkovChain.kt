@@ -8,7 +8,7 @@ class MarkovChain(private val n: Int) {
 
     fun addText(text: String) {
         //val pattern = Pattern.compile("\\b\\w+\\b")
-        val pattern = Pattern.compile("\\b[\\w-]+\\b")
+        val pattern = Pattern.compile("\\b[\\w'-]+\\b")
         val matcher = pattern.matcher(text)
         var words = mutableListOf<String>()
         while (matcher.find()) {
