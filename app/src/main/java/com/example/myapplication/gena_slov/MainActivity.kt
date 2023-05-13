@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
         // Set click listener for generateButton
         generateButton.setOnClickListener {
             // Generate a new phrase
-            val generatedPhrase = markovChain.generatePhrase(10)
+            val generatedPhrase = markovChain.generatePhrase(4)
 
             // Display the generated phrase in the TextView
             phraseTextView.text = generatedPhrase
